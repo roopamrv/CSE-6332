@@ -1,0 +1,4 @@
+azure_storage==0.37.0
+Flask==2.0.2
+pyodbc==4.0.39
+Werkzeug==2.0.2

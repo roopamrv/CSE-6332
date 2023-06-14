@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <script src="/static/js/jquery.js" type="text/javascript"></script>
+    <meta charset="UTF-8">
+    <title>Companies</title>
+</head>
+<body>
+<div class="msg">{{ msg }}</div>
+<div class="container">
+
+    <div class="row pb-4">
+    <div class="col-12">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search by name" aria-label="Search" id="searchbox">
+    </div>
+</div>
+
+  <div class="row">
+      <div class="card-group">
+          {% for person in people %}
+          <div class="col-4">
+      <div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <div class="embed-responsive embed-responsive-4by3">
+        {% if person['picture_url'] | length > 1 %}
+        <img alt="Not Found" class="card-img-top embed-responsive-item" src="{{person['picture_url']}}" />
+        {% else %}
+        <img alt="Not Found" src="https://thearrivalstore.com/wp-content/uploads/2016/04/default_user_icon.jpg" class="card-img-top embed-responsive-item" />
+        {% endif %}
+     </div>
+    <h4 class="card-title">{{person['name']}}
+        <a class="close pull-right" href="/deleterecord/{{person['id']}}"><img src="/static/img/trash-fill.svg"> </a>
+        <a class="close pull-right" href="/updaterecord/{{person['id']}}"><img src="/static/img/pencil-fill.svg"> </a>
+    </h4>
+    <h5 class="card-subtitle mb-2 text-muted"><b>State - </b>{{person['state']}}</h5>
+    <h5 class="card-subtitle mb-2 text-muted"><b>Salary - </b>{{person['salary']}}</h5>
+    <h5 class="card-subtitle mb-2 text-muted"><b>Grade - </b>{{person['grade']}}</h5>
+    <h5 class="card-subtitle mb-2 text-muted"><b>Room - </b>{{person['room']}}</h5>
+      <h5 class="card-subtitle mb-2 text-muted"><b>Phone - </b>{{person['phone']}}</h5>
+    <p class="card-text">{{person['keywords']}}</p>
+  </div></div></div>
+          {% endfor %}
+      </div>
+  </div>
+    </table>
+</div>
+</body>
+<script>
+$('#searchbox').keyup(function (){
+    $('.col-4').removeClass('d-none');
+    var filter = $(this).val();
+    if(filter.length==0){
+    window.location.href = '/';
+    }
+    else if (filter && filter.length>0){
+        $('.row').find('.col-4 .card-body h4:not(:contains("'+filter+'"))').parentsUntil('.col-4').parent().addClass('d-none');
+    }
+});
+</script>
+</html>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<html>
+	<head>
+		<title>Update Record</title>
+		<link rel="stylesheet" href="/static/css/bootstrap.css">
+	</head>
+	<body></br>
+	<section class="vh-100" style="background-color: #eee;">
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-12 col-xl-11">
+        <div class="card text-black" style="border-radius: 25px;">
+			</br>
+			<div class="header">
+				<h2 class="word" align="center">People</h2>
+			</div>
+			</br></br>
+			<div class="header">
+				<h3 class="word" align="center">Update Record</h3>
+			</div>
+			<div class="msg">{{ msg }}</div>
+				<form class="col-lg-6 offset-lg-3 " action="{{ url_for('rupdate') }}" method="POST" enctype="multipart/form-data">
+					<div class="row justify-content-center">
+						<input class="form-control" id="id" name="id" type="number" value="{{person['id']}}" class="textbox" hidden/></br></br>
+						<input class="form-control" id="name" name="name" type="text" value="{{person['name']}}" class="textbox"/></br></br>
+						<input class="form-control" id="state" name="state" type="text" value="{{person['state']}}" class="textbox"/></br></br>
+						<input class="form-control" id="salary" name="salary" type="text" value="{{person['salary']}}" class="textbox"/></br></br>
+						<input class="form-control" id="grade" name="grade" type="text" value="{{person['grade']}}" class="textbox"/></br></br>
+						<input class="form-control" id="room" name="room" type="text" value="{{person['room']}}" class="textbox"/></br></br>
+						<input class="form-control" id="phone" name="phone" type="number" value="{{person['phone']}}" class="textbox"/></br></br>
+						<!-- <input class="form-control" id="keywords" name="keywords" type="text" value="{{person['keywords']}}" class="textbox"/></br></br> -->
+						<textarea class="form-control" id="keywords" name="keywords" type="text" rows="3">{{person['keywords']}}</textarea></br></br>
+						Change Picture: <input class="form-control" name="image" type="file" placeholder="image"/></br></br>
+					<button type="submit" class="btn btn-primary">Update</button></br>
+					</div></form>
+	</div></div></div>
+  </div></section>
+	</body>
+</html>
+{% endblock %}
