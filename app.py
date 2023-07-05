@@ -6,16 +6,16 @@ from werkzeug.utils import secure_filename
 import blob_access
 
 app = Flask(__name__)
-app.config['UPLOAD_PATH'] = "./uploads"
+app.config['UPLOAD_PATH'] = "uploads"
 app.secret_key = 'your secret key'
 
-server = 'cse6332-db-server.database.windows.net'
-username = 'cse6332-user'
-password = 'Test@123'
-database = 'cse6332'
-driver= '{ODBC Driver 17 for SQL Server}'
-
-conn = pyodbc.connect('DRIVER='+driver+';SERVER=tcp:'+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password)
+server = 'mysqlserver-rv.database.windows.net'
+username = 'azureuser'
+password = 'Mavbgl@656'
+database = 'demodb'
+driver= '{ODBC Driver 18 for SQL Server}'
+#Driver={ODBC Driver 18 for SQL Server};Server=tcp:mysqlserver-rv.database.windows.net,1433;Database=demodb;Uid=azureuser;Pwd={your_password_here};
+conn = pyodbc.connect('DRIVER='+driver+';SERVER=tcp:'+server+',1433;DATABASE='+database+';UID='+username+';PWD='+ password+ ';Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
 cursor = conn.cursor()
 
 @app.route('/')
@@ -43,7 +43,8 @@ def addrecord():
         print(upload_status)
         if upload_status[0] == 'Success':
             temp_filename = upload_status[1]
-            picture_url = 'https://cse6332sa.blob.core.windows.net/images/' + temp_filename
+            print("TEMPPPPPP",temp_filename)
+            picture_url = 'https://cse6332store.blob.core.windows.net/mycontainer' + temp_filename
         else:
             msg = 'Failed to upload file!!'
             return render_template('addrecord.html', msg=msg)
@@ -95,7 +96,7 @@ def rupdate():
             print(upload_status)
             if upload_status[0] == 'Success':
                 temp_filename = upload_status[1]
-                picture_url = 'https://cse6332sa.blob.core.windows.net/images/' + temp_filename
+                picture_url = 'https://cse6332store.blob.core.windows.net/mycontainer/' + temp_filename
                 cursor.execute('''UPDATE people SET picture_url=? WHERE id=?''',(picture_url, id))
 
         cursor.execute("UPDATE people SET name='{}', state='{}', phone='{}', keywords='{}', salary='{}', grade='{}', room='{}' "
@@ -105,6 +106,7 @@ def rupdate():
         return redirect('/')
     return render_template('updaterecord.html', msg=msg)
 
+
 @app.route('/deleterecord/<id>', methods=['GET', 'POST'])
 def deleterecord(id):
     msg=''
@@ -112,3 +114,7 @@ def deleterecord(id):
     cursor.commit()
     msg = 'Record successfully deleted !'
     return redirect('/')
+
+
+if __name__ == '__main__':
+     app.run(host='0.0.0.0', port=6601, threaded=True,debug=True)

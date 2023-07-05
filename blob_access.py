@@ -3,8 +3,8 @@ from azure.identity import DefaultAzureCredential
 from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
 
 def upload_blob(local_file_name):
-    connect_str = 'DefaultEndpointsProtocol=https;AccountName=cse6332sa;AccountKey=L5I2D0U2SWJQQTFKNvf4uY2EhpoUMiu/ikdxa5QlXFZV/Z7LVZ3PCmf1fP5LfC2IOb4mYDTm3VoX+AStoG39mw==;EndpointSuffix=core.windows.net'
-    container_name = 'images'
+    connect_str = 'DefaultEndpointsProtocol=https;AccountName=cse6332store;AccountKey=q7DeZ0YB2fSxl2j4iHQnuypzUcRzZ8W28EtSN7c1xmv7ggC4aozvWW1UQuZVAto4CTEg0xaZ+zEt+ASt0Mx9Hg==;EndpointSuffix=core.windows.net'
+    container_name = 'mycontainer'
     try:
         blob_service_client = BlobServiceClient.from_connection_string(connect_str)
 

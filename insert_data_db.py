@@ -1,9 +1,9 @@
 import pyodbc
-server = 'cse6332-db-server.database.windows.net'
-username = 'cse6332-user'
-password = 'Test@123'
-database = 'cse6332'
-driver= '{ODBC Driver 17 for SQL Server}'
+server = 'mysqlserver-rv.database.windows.net'
+username = 'azureuser'
+password = 'Mavbgl@656'
+database = 'demodb'
+driver= '{ODBC Driver 18 for SQL Server}'
 import csv
 
 with open('people.csv', newline='') as csvfile:
